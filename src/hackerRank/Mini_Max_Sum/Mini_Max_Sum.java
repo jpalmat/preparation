@@ -1,6 +1,7 @@
 package hackerRank.Mini_Max_Sum;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,22 +20,30 @@ public class Mini_Max_Sum {
 	 * @param arr
 	 */
 	static void miniMaxSum(int[] arr) {
-		int maxDig=arr[0];
-        int minDig=arr[0];
-        long sum=arr[0];
-        long minSum=0,maxSum=0;
-        for(int i=1; i<5;i++){
-            sum+=arr[i];
-            if(arr[i]>maxDig){
-                maxDig=arr[i];
-            }
-            else if(arr[i]< minDig){
-                minDig=arr[i];
-            }
-        }
-        minSum=sum-maxDig;
-        maxSum=sum-minDig;
+//		int maxDig=arr[0];
+//        int minDig=arr[0];
+//        long sum=arr[0];
+//        long minSum=0,maxSum=0;
+//        for(int i=1; i<5;i++){
+//            sum+=arr[i];
+//            if(arr[i]>maxDig){
+//                maxDig=arr[i];
+//            }
+//            else if(arr[i]< minDig){
+//                minDig=arr[i];
+//            }
+//        }
+//        minSum=sum-maxDig;
+//        maxSum=sum-minDig;
+//
+//        System.out.print(minSum+" "+maxSum);
+		int min = Arrays.stream(arr).boxed().min(Comparator.comparing(Integer::valueOf)).get();
+		int max = Arrays.stream(arr).boxed().max(Comparator.comparing(Integer::valueOf)).get();
+		int sum = Arrays.stream(arr).boxed().reduce(0, Integer::sum);
+		
+		int minSum=sum-max;
+		int maxSum=sum-min;
 
-        System.out.print(minSum+" "+maxSum);
+      System.out.print(minSum+" "+maxSum);
 	}
 }
