@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -312,13 +313,6 @@ public class Main {
 		return count == 1 ? 1 : 0;
 	}
 
-	public static void main(String[] args) {
-		int[] arr = { 1, 2, 3, 1, 2, 3 };
-//		System.out.println(Arrays.toString(cellCompete(arr, 1)));// 4000000
-//		System.out.println(is123Array(arr));
-		System.out.println(3 & 0X1);
-	}
-
 	/**
 	 * A 123 array is an array that contains multiple repetitions of the values 1,
 	 * 2, 3 in that order. For example {1, 2, 3, 1, 2, 3, 1, 2, 3} is a 123 array
@@ -348,5 +342,87 @@ public class Main {
 
 	private Boolean isPrime(int number) {
 		return IntStream.rangeClosed(2, number / 2).noneMatch(i -> number % i == 0);
+	}
+	
+	static List<Integer> compareTriplets(List<Integer> a, List<Integer> b) {
+        List<Integer> result = new ArrayList<Integer>();
+        int aliceScore = 0, bobScore = 0;
+        
+        for(int i = 0; i < a.size(); i++) {
+        	if(a.get(i)> b.get(i))
+        		aliceScore++;
+        	else if(a.get(i)< b.get(i))
+        		bobScore++;
+        }
+        
+        result.add(aliceScore);
+        result.add(bobScore);
+        
+		return result;
+
+    }
+	
+	// Complete the aVeryBigSum function below.
+    static long aVeryBigSum(long[] ar) {
+    	
+		return Arrays.stream(ar).boxed().reduce(0l, (x, y) -> x+y);
+    }
+    
+    /*
+     * Complete the 'diagonalDifference' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts 2D_INTEGER_ARRAY arr as parameter.
+     */
+
+    public static int diagonalDifference(List<List<Integer>> arr) {
+    	int rows = arr.size();
+    	int diagPrincipal = 0, diagSec = 0;
+    	int result;
+    	for(int i = 0; i<rows; i++) {
+    		for(int j = 0; j<rows; j++) {
+        		if(i==j)
+        			diagPrincipal += arr.get(i).get(j) ;
+        		
+        		if(i+j == rows -1)
+        			diagSec+= arr.get(i).get(j) ;
+        	}
+    	}
+    	result = diagPrincipal - diagSec;
+		return result < 0 ? result * -1 : result;
+    }
+    
+    public static void main(String[] args) {
+		int[] arr = { 1, 2, 3, 1, 2, 3 };
+//		System.out.println(Arrays.toString(cellCompete(arr, 1)));// 4000000
+//		System.out.println(is123Array(arr));
+//		System.out.println(3 & 0X1);
+		List<List<Integer>> arraF = new ArrayList<List<Integer>>();
+//		List<Integer> arra = new ArrayList<Integer>();
+//		arra.add(3);
+//		arra.add(0);
+//		arra.add(0);
+		
+		List<Integer> arra1 = new ArrayList<Integer>();
+		arra1.add(11);
+		arra1.add(2);
+		arra1.add(4);
+		
+		List<Integer> arra2 = new ArrayList<Integer>();
+		arra2.add(4);
+		arra2.add(5);
+		arra2.add(6);
+		
+		List<Integer> arra3 = new ArrayList<Integer>();
+		arra3.add(10);
+		arra3.add(8);
+		arra3.add(-12);
+		
+//		arraF.add(arra);
+		arraF.add(arra1);
+		arraF.add(arra2);
+		arraF.add(arra3);
+		
+		System.out.println(diagonalDifference(arraF));
 	}
 }
