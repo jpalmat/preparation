@@ -1,5 +1,8 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -221,7 +224,7 @@ public class Main {
 			copy = states.clone();
 			state: for (int i = 0; i < copy.length; i++) {
 				if (i == 0 || i == copy.length - 1) {
-					if (i == 0 && copy[i+1] == 0 || i == copy.length - 1 && copy[i - 1] == 0) {
+					if (i == 0 && copy[i + 1] == 0 || i == copy.length - 1 && copy[i - 1] == 0) {
 						states[i] = 0;
 						continue state;
 					} else {
@@ -229,7 +232,7 @@ public class Main {
 						continue state;
 					}
 				}
-				if(copy[i-1] == copy[i + 1])
+				if (copy[i - 1] == copy[i + 1])
 					states[i] = 0;
 				else
 					states[i] = 1;
@@ -237,11 +240,6 @@ public class Main {
 		}
 		return states;
 	} //
-
-	public static void main(String[] args) {
-		int[] arr = { 1, 0, 0, 0, 0, 1, 0, 0 };
-		System.out.println(Arrays.toString(cellCompete(arr, 1)));// 4000000
-	}
 
 	/**
 	 * The greatest common divisor (GCD), also called highest common factor (HCF) of
@@ -301,4 +299,54 @@ public class Main {
 		return num;
 
 	} // METHOD SIGNATURE ENDS
+
+	/**
+	 * Write a function named hasSingleMaximum that takes an array argument and
+	 * returns 1 if the maximum value in its array argument occurs exactly once in
+	 * the array, otherwise it returns 0.
+	 */
+	public static int hasSingleMaximum(int[] a) {
+		List<Integer> list = Arrays.stream(a).boxed().collect(Collectors.toList());
+		Integer max = list.stream().collect(Collectors.reducing(Integer::max)).orElse(null);
+		long count = list.stream().filter(l -> l == max).count();
+		return count == 1 ? 1 : 0;
+	}
+
+	public static void main(String[] args) {
+		int[] arr = { 1, 2, 3, 1, 2, 3 };
+//		System.out.println(Arrays.toString(cellCompete(arr, 1)));// 4000000
+//		System.out.println(is123Array(arr));
+		System.out.println(3 & 0X1);
+	}
+
+	/**
+	 * A 123 array is an array that contains multiple repetitions of the values 1,
+	 * 2, 3 in that order. For example {1, 2, 3, 1, 2, 3, 1, 2, 3} is a 123 array
+	 * but {1, 2, 3, 1, 2} is not. Write a function named is123Array which returns 1
+	 * if its array argument is a 123 array, otherwise it returns 0.
+	 */
+	public static int is123Array(int[] a) {
+		if (a.length % 3 != 0)
+			return 0;
+
+		String s = Arrays.stream(a).boxed().map(n -> n.toString()).collect(Collectors.joining());
+		String pattern = "^(123)+";
+		return s.matches(pattern) ? 1 : 0;
+	}
+
+	/**
+	 * A number n is called prime-happy if there is at least one prime less than n
+	 * and the sum of all primes less than n is evenly divisible by n. Recall that a
+	 * prime number is an integer > 1 which has only two integer factors, 1 and
+	 * itself Write a function named isPrimeHappy that returns 1 if its integer
+	 * argument is prime-happy; otherwise it returns 0.
+	 */
+	public int isPrimeHappy(int number) {
+		int sumPrimes = IntStream.rangeClosed(2, number).filter(n -> isPrime(n)).boxed().reduce(0, Integer::sum);
+		return sumPrimes % number == 0 ? 1 : 0;
+	}
+
+	private Boolean isPrime(int number) {
+		return IntStream.rangeClosed(2, number / 2).noneMatch(i -> number % i == 0);
+	}
 }
