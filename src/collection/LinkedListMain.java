@@ -11,8 +11,8 @@ public class LinkedListMain {
 		list.addFirst("zz");
 		list.addLast("zz");
 		
-//		list.removeIf(n -> n.length()==2);
-		list.poll();
+		list.removeIf(n -> n.length()==4);
+//		list.poll();
 		
 		System.out.println(list);
 	}
