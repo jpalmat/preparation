@@ -68,12 +68,10 @@ public class StreamMain {
 			return s1 * s2;});
 		System.out.println(res);
 
-		//pass list to map
+		//pass list to map https://www.baeldung.com/java-8-streams
 		String string = "this is a is test a is";
 		List<String> listString1 = Arrays.stream(string.split(" ")).collect(Collectors.toList());
-		Map<String, Integer> collect = listString1.parallelStream().
-						collect(Collectors.toConcurrentMap(
-								w -> w, w -> 1, Integer::sum));
+		Map<String, Integer> collect = listString1.parallelStream().collect(Collectors.toConcurrentMap(w -> w, w -> 1, Integer::sum));
 
 		System.out.println(collect);
 	}
