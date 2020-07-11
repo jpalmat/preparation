@@ -82,5 +82,11 @@ public class StreamMain {
 		System.out.println(groups);
 		System.out.println(groups1);
 
+		//remove duplicates
+		List<Integer> listWithDuplicates = Arrays.asList(1, 1, 2, 2, 3, 3);
+		List<Integer> listWithoutDuplicates = listWithDuplicates.stream()
+				.distinct()
+				.collect(Collectors.toList());
+		System.out.println(listWithoutDuplicates);
 	}
 }
