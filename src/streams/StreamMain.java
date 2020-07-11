@@ -1,9 +1,6 @@
 package streams;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -88,5 +85,9 @@ public class StreamMain {
 				.distinct()
 				.collect(Collectors.toList());
 		System.out.println(listWithoutDuplicates);
+
+		//primitive array to List
+		int[] intTest = {1, 2, 3};
+		List<Integer> listIntToInteger = Arrays.stream(intTest).boxed().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
 	}
 }
