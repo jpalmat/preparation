@@ -16,7 +16,7 @@ public class CompareList {
         //find common elements
         listOne.retainAll(listTwo);
         System.out.println(listOne);
-        
+
     }
 }
 class Person {
