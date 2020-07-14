@@ -67,7 +67,7 @@ public class StreamMain {
 
 		//pass list to map https://www.baeldung.com/java-8-streams
 		String string = "this is a is test a is";
-		List<String> listString1 = Arrays.stream(string.split(" ")).collect(Collectors.toList());
+		List<String> listString1 = Arrays.stream(string.split(" ")).filter(x -> x.equals("is")).collect(Collectors.toList());
 		//{a=2, test=1, this=1, is=3}
 		Map<String, Integer> collect = listString1.parallelStream().collect(Collectors.toConcurrentMap(w -> w, w -> 1, Integer::sum));
 		//{false=[is, a, is, a, is], true=[this, test]}
