@@ -1,11 +1,18 @@
 package hackerRank.interviewpreparationkit.arrays.minimumswaps2;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class MinimumSwaps2 {
     static int times = 0;
     public static void main(String[] args) {
         System.out.println(minimumSwaps(new int[]{2, 3, 4, 1 ,5}));
+
+        List<String> a = Arrays.asList(new String[]{"a", "b"});
+
+        List<String> b = Arrays.asList(new String[]{"a", "b"});
+
+        a.stream().filter(x -> b.contains(x)).count();
     }
 
 //    static void swap(int[] array,int left, int right){
