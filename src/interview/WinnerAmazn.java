@@ -1,10 +1,14 @@
 package interview;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class WinnerAmazn {
 
-    public static void main(String[] args) {
-
-    }
     /*
     Amazon Fresh is running a promotion in which customers receive prizes for purchasing a secret combination of fruits. The combination will change each day, and the team running the promotion
 wants to use a code list to make it easy to change the combination. The code list contains groups of fruits. Both the order of the groups within the code list and the order of the fruits within
@@ -63,4 +67,39 @@ Output
 Explanation:
 The customer is not a winner as the customer has added the fruits in order of groups but group [banana, orange, banana] is not following the group [apple, apple] in the codeList
      */
+
+    public static void main(String[] args) {
+
+//        List<String> lis1 = Arrays.asList("a", "b", "c", "a", "e");
+//        List<String> list2 = Arrays.asList("b", "a", "c");
+//        System.out.println(lis1.indexOf("a"));
+        List<List<String>> codeList = new ArrayList<>();
+        codeList.add(Arrays.asList("apple", "apple"));
+        codeList.add(Arrays.asList("banana", "anything", "banana"));
+
+        System.out.println(checkWinner(codeList, Arrays.asList("orange", "apple", "apple", "banana", "orange", "banana")));
+
+    }
+
+    public static int checkWinner(List<List<String>> codeList, List<String> shoppingCart){
+        List<String> codeListU = codeList.stream().flatMap(List::stream).collect(Collectors.toList());
+        int[] position = {-1};
+
+        codeListU.stream()
+                .peek(x -> position[0]++)  // increment every element encounter
+                .filter(x -> !x.equals("anything"))
+                .findFirst()
+                .get();
+        int index = shoppingCart.indexOf(codeListU.get(position[0]++));
+        for(int i = index+1; i<shoppingCart.size(); i++){
+            if(codeListU.get(position[0]).equals("anything")){
+                position[0]++;
+                continue;
+            }
+            if(!shoppingCart.get(i).equals(codeListU.get(position[0]++))){
+                return 0;
+            }
+        }
+        return position[0]==codeListU.size() ? 1 : 0;
+    }
 }
