@@ -1,4 +1,4 @@
-package interview;
+package interview.amazon.winner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
