@@ -11,11 +11,11 @@ public class CompareList {
         ArrayList<Person> listTwo = new ArrayList<Person>(Arrays.asList(new Person("Jimmy", 30), new Person("Maryam", 31)));
         System.out.println(listOne.equals(listTwo));
         //remove all elements of second list
-//        listOne.removeAll(listTwo);
-//        System.out.println(listOne);
-        //find common elements
-        listOne.retainAll(listTwo);
+        listOne.removeAll(listTwo);
         System.out.println(listOne);
+        //find common elements
+//        listOne.retainAll(listTwo);
+//        System.out.println(listOne);
 
     }
 }
