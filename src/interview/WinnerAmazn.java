@@ -40,7 +40,7 @@ Examples
 Example1
 
 Input:
-codeList= [[apple, apple], banana, anything, banana]
+codeList= [[apple, apple], [banana, anything, banana]]
 shopping Cart= [orange apple apple, banana, orange, banana]
 
 Output:
