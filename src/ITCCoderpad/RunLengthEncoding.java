@@ -8,6 +8,12 @@ public class RunLengthEncoding {
     public static void main(String[] args) {
         System.out.println(printRLE("wwwwaaadexxxxxx"));
     }
+
+    /**
+     * https://www.geeksforgeeks.org/run-length-encoding/
+     * @param str
+     * @return
+     */
     public static String printRLE(String str)
     {
         StringBuilder sb = new StringBuilder();
