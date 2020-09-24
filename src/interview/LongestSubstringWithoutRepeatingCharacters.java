@@ -11,7 +11,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
     static int longestUniqueSubsttr(String s)
     {
-        Set<String> setString = new HashSet<>();
+        Set<String> setString = new HashSet<>(s.length());
         int max = 0;
         for(int i = 0; i < s.length(); i++){
             for(int j = i; j < s.length(); j++){
