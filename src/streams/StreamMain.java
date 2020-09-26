@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.groupingBy;
 public class StreamMain {
 
 	public static void main(String[] args) {
-//		//create list
+		//create list
 //		List<String> list = Arrays.asList("test", "pizza", "ham");
 //		System.out.println(list);
 //
@@ -68,10 +68,16 @@ public class StreamMain {
 //		System.out.println(res);
 //
 //		//pass list to map https://www.baeldung.com/java-8-streams
-//		String string = "this is a is test a is";
-//		List<String> listString1 = Arrays.stream(string.split(" ")).collect(Collectors.toList());
+//
+		String string = "this is a is test a is";
+		List<String> listString1 = Arrays.stream(string.split(" ")).collect(Collectors.toList());
+
 //		//{a=2, test=1, this=1, is=3}
-//		Map<String, Integer> collect = listString1.parallelStream().collect(Collectors.toConcurrentMap(w -> w, w -> 1, Integer::sum));
+		Map<String, Integer> collect = listString1.parallelStream().
+		collect(Collectors.toConcurrentMap(w -> w, w -> 1, Integer::sum));
+
+
+
 //		//{false=[is, a, is, a, is], true=[this, test]}
 //		Map<Boolean, List<String>> groups = listString1.stream().collect(Collectors.partitioningBy(s -> s.length() > 2));
 //		//{1=[a, a], 2=[is, is, is], 4=[this, test]}
@@ -89,9 +95,72 @@ public class StreamMain {
 //		System.out.println(listWithoutDuplicates);
 //
 //		//primitive array to List
-		int[] intTest = {1, 2, 3};
-		List<Integer> listIntToInteger = Arrays.stream(intTest).boxed().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+//		int[] intTest = {1, 2, 3};
+//		List<Integer> listIntToInteger = Arrays.stream(intTest).boxed().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+//
+//		System.out.println(listIntToInteger.stream().reduce(Integer::min).orElse(-1));
 
-		System.out.println(listIntToInteger.stream().reduce(Integer::min).orElse(-1));
+		Persona person = new Persona("Jimmy", 3);
+		Persona person1 = new Persona("Maryam", 4);
+
+//		List<Persona> list = Arrays.asList(new Persona[]{new Persona("Jimmy", 3), new Persona("Maryam", 4)});
+//
+//		list.sort((p1, p2) -> p2.getAge().compareTo(p1.getAge()));
+//
+//		System.out.println(list);
+//
+//		Comparator<Persona> c = Comparator.comparing(Persona::getAge);
+
+		List<Persona> list = Arrays.asList(new Persona[]{new Persona("Jimmy", 3), new Persona("Maryam", 5)});
+
+		List a = list.stream().sorted(Comparator.comparing(Persona::getAge)).collect(Collectors.toList());
+
+		//max age
+		Persona maxAge = list.stream().max(Comparator.comparing(Persona::getAge)).orElseThrow();
+		int max = list.stream().map(x -> x.getAge()).mapToInt(v -> v).max().orElse(-1);
+
+		double aver = list.stream().map(x -> x.getAge()).mapToInt(v -> v).average().orElse(-1);
+		OptionalDouble asv = list.stream().map(x -> x.getAge()).mapToInt(v -> v).average();
+		System.out.println("a "+asv.getAsDouble());
+
+		System.out.println(max);
+
+
+
+		String a1 = "as ad ac";
+	}
+}
+
+class Persona {
+	private String name;
+	private Integer age;
+
+	public Persona(String name, Integer age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona{" +
+				"name='" + name + '\'' +
+				", age=" + age +
+				'}';
 	}
 }
