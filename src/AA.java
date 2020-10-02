@@ -4,15 +4,15 @@ public class AA {
         printPermutation(s, 0, s.length() -1);
     }
 
-    public static void printPermutation(String s, int initial, int length){
-        if(length == initial){
+    public static void printPermutation(String s, int initial, int length) {
+        if (length == initial) {
             System.out.println(s);
-        }
-
-        for(int i = 1; i <= length - 1; i++){
-            s = swat(s, initial, i);
-            printPermutation(s, initial + 1, length);
-            s = swat(s, initial, i);
+        } else {
+            for (int i = initial; i <= length; i++) {
+                s = swat(s, initial, i);
+                printPermutation(s, initial + 1, length);
+                s = swat(s, initial, i);
+            }
         }
     }
 

@@ -18,13 +18,15 @@ public class RunLengthEncoding {
     {
         StringBuilder sb = new StringBuilder();
         int count = 1;
-        for(int i = 1; i < str.length(); i++){
-            if(str.charAt(i) == str.charAt(i-1)) {
+        for(int i = 0; i < str.length(); i++){
+            while(i < str.length()-1){
+                if(str.charAt(i) != str.charAt(i+1)) {
+                    break;
+                }
                 count++;
-                if(i != str.length() - 1)
-                    continue;
+                i++;
             }
-            sb.append(str.charAt(i-1)).append(count);
+            sb.append(str.charAt(i)).append(count);
             count = 1;
         }
         return sb.toString();

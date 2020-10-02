@@ -23,6 +23,7 @@ public class SmallestSubarrayWithSumGreaterThanAGivenValue {
                     break;
                 if(temp > x){
                     set.add(count);
+                    count=0;
                     break;
                 }
                 temp += arr[j];
