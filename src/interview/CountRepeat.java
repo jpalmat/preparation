@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class CountRepeat {
     public static void main(String[] args) {
         System.out.println(summation(new int[]{1, 6, 8, 5, 9, 4, 7, 2}));
-        System.out.println(getMapping("abbbcddddeffabbbbbb"));
+        //System.out.println(getMapping("abbbcddddeffabbbbbb"));
     }
 
     /*
@@ -25,11 +25,10 @@ Output
         int limit = 1, i, j;
         int sum = 0;
         list.add(arr[0]);
-        for (i = 1; i < arr.length; i++) {
+        for (i = 1; i < arr.length ; i++) {
             limit++;
             sum = 0;
-            ok:
-            for (j = 0; j < limit; j++) {
+            ok:for (j = 0; j < limit; j++) {
                 if (i == arr.length)
                     break ok;
                 sum += arr[i++];
