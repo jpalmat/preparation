@@ -2,9 +2,11 @@ package interview.amazon.winner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class WinnerAmazn {
@@ -77,61 +79,117 @@ The customer is not a winner as the customer has added the fruits in order of gr
         codeList.add(Arrays.asList("apple", "apple"));
         codeList.add(Arrays.asList("banana", "anything", "banana"));
 
-        System.out.println(checkWinner(codeList, Arrays.asList("orange", "apple", "apple", "banana", "orange", "banana")));
+        System.out.println(checkWinner(codeList, Arrays.asList("orange", "apple", "apple", "apple", "banana", "orange", "banana")));
 
     }
 
-    public static int checkWinner(List<List<String>> codeList, List<String> shoppingCart){
-        List<String> codeListU = codeList.stream().flatMap(List::stream).collect(Collectors.toList());
-        int[] position = {-1};
-
-        codeListU.stream()
-                .peek(x -> position[0]++)  // increment every element encounter
-                .filter(x -> !x.equals("anything"))
-                .findFirst()
-                .get();
-        int index = shoppingCart.indexOf(codeListU.get(position[0]++));
-        for(int i = index+1; i<shoppingCart.size(); i++){
-            if(codeListU.get(position[0]).equals("anything")){
-                position[0]++;
-                continue;
-            }
-            if(!shoppingCart.get(i).equals(codeListU.get(position[0]++))){
-                return 0;
+    private static boolean itemsMatch(String code, String item){
+        if("anything".equals(code)) return true;
+        else if(item.equals(code)) return true;
+        else return false;
+    }
+    public static int checkWinner(List<List<String>> codes, List<String> shoppingCart) {
+        int listIndex = 0;
+        int listItemIndex = 0;
+        boolean currListMatches = false;
+        List<String> currList = codes.get(listIndex++);
+        for(String item:shoppingCart){
+            String code = currList.get(listItemIndex);
+            if(currListMatches && !itemsMatch(code, item)){
+                listItemIndex = 0; //reset to current code list starting position
+            }else if(itemsMatch(code, item)){
+                currListMatches = true;
+                listItemIndex++;
+                if(listItemIndex==currList.size()){
+                    if(listIndex==codes.size()){
+                        return 1; //all the codes matched
+                    }
+                    currList = codes.get(listIndex++); //move on to next code list
+                    currListMatches = false;
+                    listItemIndex = 0;
+                }
             }
         }
-        return position[0]==codeListU.size() ? 1 : 0;
+        return 0;
+//        List<String> codeListU = codeList.stream().flatMap(List::stream).collect(Collectors.toList());
+//        int[] indexes;
+//        int result = 1;
+//        if(shoppingCart.size()<codeListU.size()){
+//            return 0;
+//        } else {
+//            String first = codeListU.get(0);
+//            indexes = IntStream.range(0, shoppingCart.size()).filter(i -> shoppingCart.get(i).equals(first)).toArray();
+//            List<String> subListShoppingCart;
+//
+//            for(int i = 0; i < indexes.length; i++){
+//                result = 1;
+//                if(indexes[i]+codeListU.size() > shoppingCart.size()){
+//                    result = 0;
+//                    break;
+//                }
+//                subListShoppingCart = shoppingCart.subList(indexes[i], indexes[i] + codeListU.size());
+//                for(int j = 0; j < subListShoppingCart.size(); j++){
+//                    if(codeListU.get(j).equals("anything")) {
+//                        continue;
+//                    }
+//                    if(!subListShoppingCart.get(j).equals(codeListU.get(j))) {
+//                        result = 0;
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//         return result;
+        //////////////////////////////
+//        List<String> codeListU = codeList.stream().flatMap(List::stream).collect(Collectors.toList());
+//        int position = 0;
+//
+////        codeListU.stream()
+//////                .peek(x -> position[0]++)  // increment every element encounter
+////                .filter(x -> !x.equals("anything"))
+////                .findFirst()
+////                .get();
+//        int index = shoppingCart.indexOf(codeListU.get(position++));
+//        for(int i = index+1; i<shoppingCart.size(); i++){
+//            if(codeListU.get(position).equals("anything")){
+//                position++;
+//                continue;
+//            }
+//            if(!shoppingCart.get(i).equals(codeListU.get(position++))){
+//                return 0;
+//            }
+//        }
+//        return position==codeListU.size() ? 1 : 0;
 
-        /*
+
         //Maryam
-        List<String> newList=codeList.stream().flatMap(Collection::stream).collect(Collectors.toList());
-        int length=shoppingCart.size()-newList.size();
-        if(length<0){
-            return 0;
-        }
-        else if(length==0){
-            for(int i=0;i<newList.size();++i){
-                if(!newList.get(i).equals(shoppingCart.get(i)) && !newList.get(i).equals("anything") ){
-                    return 0;
-                }
-            }
-            return 1;
-        }
-        else {//different >0
-            boolean flag1=true,flag2=true;
-            List<String> shopingCart1= shoppingCart.subList(0,shoppingCart.size()-length-1);
-            List<String> shopingCart2= shoppingCart.subList(length,shoppingCart.size()-1);
-            for(int i=0;i<newList.size();++i){
-                if(!newList.get(i).equals(shopingCart1.get(i))){
-                    flag1=false;
-                }
-            }
-            for(int i=0;i<newList.size();++i){
-                if(!newList.get(i).equals(shopingCart2.get(i))){
-                    flag2=false;
-                }
-            }
-            return (flag1 || flag2) ? 1:0;
-         */
+//        List<String> newList = codeList.stream().flatMap(Collection::stream).collect(Collectors.toList());
+//        int length = shoppingCart.size() - newList.size();
+//        if (length < 0) {
+//            return 0;
+//        } else if (length == 0) {
+//            for (int i = 0; i < newList.size(); ++i) {
+//                if (!newList.get(i).equals(shoppingCart.get(i)) && !newList.get(i).equals("anything")) {
+//                    return 0;
+//                }
+//            }
+//            return 1;
+//        } else {//different >0
+//            boolean flag1 = true, flag2 = true;
+//            List<String> shopingCart1 = shoppingCart.subList(0, shoppingCart.size() - length - 1);
+//            List<String> shopingCart2 = shoppingCart.subList(length, shoppingCart.size() - 1);
+//            for (int i = 0; i < newList.size(); ++i) {
+//                if (!newList.get(i).equals(shopingCart1.get(i))) {
+//                    flag1 = false;
+//                }
+//            }
+//            for (int i = 0; i < newList.size(); ++i) {
+//                if (!newList.get(i).equals(shopingCart2.get(i))) {
+//                    flag2 = false;
+//                }
+//            }
+//            return (flag1 || flag2) ? 1 : 0;
+//
+//        }
     }
 }

@@ -4,7 +4,7 @@ public class QuickSelect {
     // Driver Code
     public static void main(String[] args) {
         int[] arr = {10, 4, 6};
-        int ksmall = 3;
+        int ksmall = 2;
         System.out.println(kSmallest(arr, 0, arr.length - 1, ksmall-1));
     }
 

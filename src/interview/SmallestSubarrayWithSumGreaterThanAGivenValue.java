@@ -1,8 +1,11 @@
 package interview;
 
+/*
+Given an array of integers and a number x, find the smallest subarray with sum greater than the given value.
+ */
 public class SmallestSubarrayWithSumGreaterThanAGivenValue {
     public static void main(String[] args) {
-        int arr1[] = {1, 4, 45, 6, 10, 19};
+        int arr1[] = {1, 4, 45, 6, 0, 19};
         int x = 51;
         System.out.println(smallestSubWithSum(arr1, x));
     }

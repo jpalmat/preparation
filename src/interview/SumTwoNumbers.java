@@ -7,7 +7,7 @@ public class SumTwoNumbers {
 
     public static void main(String[] args) {
         int[] arr = {10, 22, 4, 8, 12, 6, 11, 1};
-        int sum = 15;
+        int sum = 12;
 
         Map<Integer, Integer> m = new HashMap<>();
 
