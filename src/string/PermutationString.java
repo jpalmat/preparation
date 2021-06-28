@@ -10,5 +10,9 @@ public class PermutationString {
             }
         }
     }
-
+    public static void main(String[] args)
+    {
+        String s = "abb";
+        permutation("", s);
+    }
 }

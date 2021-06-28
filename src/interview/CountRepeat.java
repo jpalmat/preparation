@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class CountRepeat {
     public static void main(String[] args) {
         System.out.println(summation(new int[]{1, 6, 8, 5, 9, 4, 7, 2}));
-        //System.out.println(getMapping("abbbcddddeffabbbbbb"));
+        System.out.println(getMapping("abbbcddddeffabbbbbb"));
     }
 
     /*
@@ -69,7 +69,7 @@ Note: “a” appears two times but it is not consecutively repeated
                         collect.put(a.pop(), 1);
                 }
                 a.clear();
-                a.push(value);
+//                a.push(value);
             }
         }
         if (a.size() > 1 && a.peek().equals(value)) {

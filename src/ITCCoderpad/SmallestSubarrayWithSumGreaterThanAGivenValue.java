@@ -7,9 +7,9 @@ import java.util.TreeSet;
  */
 public class SmallestSubarrayWithSumGreaterThanAGivenValue {
     public static void main(String[] args) {
-        int arr1[] = {1, 10, 5, 2, 7};
+        int arr1[] = {1, 4, 45, 6, 0, 19};
         int x = 51;
-        System.out.println(smallestSubWithSum(arr1, 9));
+        System.out.println(smallestSubWithSum(arr1, x));
     }
 
     public static int smallestSubWithSum(int arr[], int x){

@@ -1,12 +1,7 @@
 package streams;
 
 import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -111,9 +106,13 @@ public class StreamMain {
 //
 //		Comparator<Persona> c = Comparator.comparing(Persona::getAge);
 
-		List<Persona> list = Arrays.asList(new Persona[]{new Persona("Jimmy", 3), new Persona("Maryam", 5)});
+		List<Persona> list = Arrays.asList(new Persona[]{new Persona("Jimmyyyyyyyy", 3), new Persona("Maryam", 5)});
 
-		List a = list.stream().sorted(Comparator.comparing(Persona::getAge)).collect(Collectors.toList());
+		List a = list.stream().sorted((Persona p1, Persona p2) -> p1.getNamePersona().length() - p2.getNamePersona().length()).collect(Collectors.toList());
+		List b = list.stream().sorted(Comparator.comparing(Persona::getAge)).collect(Collectors.toList());
+
+		System.out.println(a);
+		System.out.println(b);
 
 		//max age
 		Persona maxAge = list.stream().max(Comparator.comparing(Persona::getAge)).orElseThrow();
@@ -131,21 +130,21 @@ public class StreamMain {
 	}
 }
 
-class Persona {
-	private String name;
+class Persona extends Thread{
+	private String namePersona;
 	private Integer age;
 
-	public Persona(String name, Integer age) {
-		this.name = name;
+	public Persona(String namePersona, Integer age) {
+		this.namePersona = namePersona;
 		this.age = age;
 	}
 
-	public String getName() {
-		return name;
+	public String getNamePersona() {
+		return namePersona;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNamePersona(String namePersona) {
+		this.namePersona = namePersona;
 	}
 
 	public Integer getAge() {
@@ -159,7 +158,7 @@ class Persona {
 	@Override
 	public String toString() {
 		return "Persona{" +
-				"name='" + name + '\'' +
+				"name='" + namePersona + '\'' +
 				", age=" + age +
 				'}';
 	}

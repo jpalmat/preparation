@@ -13,16 +13,7 @@ Given a list of digits, build the smallest number you can construct with those d
     * Answer: “7”
  */
 public class SmallestDigits {
-//    public static void main(String[] args) {
-//        List<Integer> list = Arrays.asList(8, 7, 1);
-//        System.out.println(list);
-//        Collections.sort(list);
-//        System.out.println(list);
-//        String test = list.stream()
-//                .map(x -> String.valueOf(x))
-//                .reduce("", String::concat);
-//        System.out.println(test);
-//    }
+
 
     static int smallest(int num)
     {
@@ -38,12 +29,12 @@ public class SmallestDigits {
         }
 
         // Set the LEFTMOST digit to minimum expect 0
-        int result = 0;
+        StringBuilder result = new StringBuilder();
         for (int i = 1 ; i <= 9 ; i++)
         {
             if (freq[i] != 0)
             {
-                result = i;
+                result.append(i);
                 freq[i]--;
                 break;
             }
@@ -52,10 +43,12 @@ public class SmallestDigits {
         // arrange all remaining digits
         // in ascending order
         for (int i = 0 ; i <= 9 ; i++)
-            while (freq[i]-- != 0)
-                result = result * 10 + i;
+            while (freq[i] != 0) {
+                result.append(i);// = result * 10 + i;
+                freq[i]--;
+            }
 
-        return result;
+        return Integer.valueOf(result.toString());// result;
     }
 
     // Driver Program

@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public class LongestCommonSubstring {
     public static void main(String[] args) {
-        System.out.println(LCSubStr("GeeksforGeeks".toCharArray(), "GeeksQuiz".toCharArray()));
+        System.out.println(LCSubStr("abcdxyz".toCharArray(), "xyzabcd".toCharArray()));
     }
 
     public static int LCSubStr(String x, String y) {
