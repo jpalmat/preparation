@@ -2,16 +2,16 @@ package javaPrep;
 
 class ClaseA {
     public void metodo1() {
-        System.out.print("CA-M1 ");
+        System.out.println("CA-M1 ");
     }
 }
 
 class ClaseB extends ClaseA {
     public void metodo1() {
-        System.out.print("CB-M1 ");
+        System.out.println("CB-M1 ");
     }
     public void metodo2() {
-        System.out.print("CB-M2 ");
+        System.out.println("CB-M2 ");
     }
 }
 public class Casting {
