@@ -2,7 +2,11 @@ package javaPrep;
 
 public class PalindromoInteger {
 
-    public boolean IsPalindrome(int x) {
+    public static void main(String[] args) {
+        System.out.println(isPalindrome(10));
+    }
+
+    public static boolean isPalindrome(int x) {
         // Special cases:
         // As discussed above, when x < 0, x is not a palindrome.
         // Also if the last digit of the number is 0, in order to be a palindrome,
@@ -22,5 +26,6 @@ public class PalindromoInteger {
         // For example when the input is 12321, at the end of the while loop we get x = 12, revertedNumber = 123,
         // since the middle digit doesn't matter in palidrome(it will always equal to itself), we can simply get rid of it.
         return x == revertedNumber || x == revertedNumber/10;
+
     }
 }
