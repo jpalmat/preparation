@@ -1,4 +1,4 @@
-package streams;
+package javaPrep.streams;
 
 import java.util.*;
 import java.util.stream.Collectors;
