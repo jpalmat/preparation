@@ -1,4 +1,4 @@
-package string;
+package javaPrep;
 
 public class RemoveSpecialCharacter {
     public static String removeCharacter(String string) {

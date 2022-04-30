@@ -1,4 +1,4 @@
-package string;
+package javaPrep;
 
 public class PermutationString {
     public static void permutation(String perm, String word) {
