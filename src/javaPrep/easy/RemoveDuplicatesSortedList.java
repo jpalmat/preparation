@@ -1,8 +1,20 @@
 package javaPrep.easy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RemoveDuplicatesSortedList {
 
     public static void main(String[] args) {
+//        List test = new ArrayList();
+//        test.add(5);
+//
+//        List testb = test;
+//        testb.add(6);
+//
+//        System.out.println(test);
+//        System.out.println(testb);
+
         ListNode two = new ListNode(2, null);
         ListNode one = new ListNode(1, two);
         ListNode head = new ListNode(1, one);
