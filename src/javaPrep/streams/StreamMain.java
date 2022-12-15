@@ -2,12 +2,18 @@ package javaPrep.streams;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
 
 public class StreamMain {
 
 	public static void main(String[] args) {
+
+		Map<String, String> map = Stream.of(new String[][] {
+				{ "Hello", "World" },
+				{ "John", "Doe" },
+		}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 		//create list
 //		List<String> list = Arrays.asList("test", "pizza", "ham");
 //		System.out.println(list);
