@@ -1,7 +1,5 @@
 package javaPrep.sort;
 
-import java.util.Random;
-
 public class QuickSort extends GenerateList {
     public static void main(String[] args) {
         printArray(inputArray);
@@ -29,6 +27,13 @@ public class QuickSort extends GenerateList {
         int pivot = inputArray[pivotIndex];
         swap(inputArray, pivotIndex, highindex);
 
+        int leftPointer = partition(inputArray, lowIndex, highindex, pivot);
+
+        quicksort(inputArray, lowIndex, leftPointer - 1);
+        quicksort(inputArray, leftPointer + 1, highindex);
+    }
+
+    private static int partition(int[] inputArray, int lowIndex, int highindex, int pivot) {
         int leftPointer = lowIndex;
         int rightPointer = highindex;
 
@@ -38,14 +43,13 @@ public class QuickSort extends GenerateList {
             }
             while(inputArray[rightPointer] >= pivot && leftPointer < rightPointer) {
                 rightPointer--;
+
             }
 
             swap(inputArray, leftPointer, rightPointer);
         }
         swap(inputArray, leftPointer, highindex);
-
-        quicksort(inputArray, lowIndex, leftPointer - 1);
-        quicksort(inputArray, leftPointer + 1, highindex);
+        return leftPointer;
     }
 
     private static void swap(int[] array, int index1, int index2){
