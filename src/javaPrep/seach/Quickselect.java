@@ -7,8 +7,7 @@ public class Quickselect extends GenerateList {
     public static void main(String[] args) {
         printArray(inputArray);
 
-        System.out.println("after");
-        System.out.println(ksmallest(inputArray, 0, inputArray.length - 1, 2));
+        System.out.println("the k smallest element is "+ ksmallest(inputArray, 0, inputArray.length - 1, 2));
     }
 
     private static int ksmallest(int[] inputArray, int lowIndex, int highIndex, int k) {
