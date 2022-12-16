@@ -1,5 +1,7 @@
 package javaPrep.sort;
 
+import javaPrep.GenerateList;
+
 public class QuickSort extends GenerateList {
     public static void main(String[] args) {
         printArray(inputArray);

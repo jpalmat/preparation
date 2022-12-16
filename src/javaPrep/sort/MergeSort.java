@@ -1,5 +1,7 @@
 package javaPrep.sort;
 
+import javaPrep.GenerateList;
+
 public class MergeSort extends GenerateList {
 
     public static void main(String[] args) {

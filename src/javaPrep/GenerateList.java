@@ -1,4 +1,4 @@
-package javaPrep.sort;
+package javaPrep;
 
 import java.util.Random;
 
