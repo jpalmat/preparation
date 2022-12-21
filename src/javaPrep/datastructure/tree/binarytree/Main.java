@@ -1,4 +1,4 @@
-package javaPrep.datastructure.binarytree;
+package javaPrep.datastructure.tree.binarytree;
 
 public class Main {
     public static void main(String[] args) {
