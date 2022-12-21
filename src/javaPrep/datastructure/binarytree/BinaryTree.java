@@ -79,4 +79,31 @@ public class BinaryTree {
     private int findSmallestValue(Node root) {
         return root.left == null ? root.value : findSmallestValue(root.left);
     }
+
+    //The in-order traversal consists of first visiting the left sub-tree, then the root node, and finally the right sub-tree:
+    public void traverseInOrder(Node node) {
+        if (node != null) {
+            traverseInOrder(node.left);
+            System.out.print(" " + node.value);
+            traverseInOrder(node.right);
+        }
+    }
+
+    //Pre-order traversal visits first the root node, then the left sub-tree, and finally the right sub-tree:
+    public void traversePreOrder(Node node) {
+        if (node != null) {
+            System.out.print(" " + node.value);
+            traversePreOrder(node.left);
+            traversePreOrder(node.right);
+        }
+    }
+
+    //Post-order traversal visits the left sub-tree, the right subt-ree, and the root node at the end:
+    public void traversePostOrder(Node node) {
+        if (node != null) {
+            traversePostOrder(node.left);
+            traversePostOrder(node.right);
+            System.out.print(" " + node.value);
+        }
+    }
 }
