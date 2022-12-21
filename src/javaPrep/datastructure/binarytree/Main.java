@@ -20,5 +20,8 @@ public class Main {
 
         System.out.println("\npostOrder");
         bt.traversePostOrder(bt.root);
+
+        System.out.println("\nBreadth first search");
+        bt.traverseLevelOrder();
     }
 }
