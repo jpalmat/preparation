@@ -1,4 +1,4 @@
-package javaPrep.datastructure.tree;
+package javaPrep.datastructure.tree.binarytree;
 
 public class Node {
     public int value;

@@ -1,7 +1,5 @@
 package javaPrep.datastructure.tree.binarytree;
 
-import javaPrep.datastructure.tree.Node;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
