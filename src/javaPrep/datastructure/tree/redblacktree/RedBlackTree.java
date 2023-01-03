@@ -88,7 +88,7 @@ public class RedBlackTree extends BalanceableTree {
 
         if(isBlack(y)) {
             if(isRed(node.getLetfChild()) || isRed(node.getRightChild())) {
-                Node x = (isRed(y.getLetfChild()) || ? y.getLetfChild() : y.getRightChild());
+                Node x = (isRed(y.getLetfChild()) ? y.getLetfChild() : y.getRightChild());
                 Node middle = restructure(x);
                 setColor(middle, isRed(z));
                 makeBlack(middle.getLetfChild());
