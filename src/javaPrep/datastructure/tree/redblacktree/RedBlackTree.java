@@ -1,113 +1,211 @@
 package javaPrep.datastructure.tree.redblacktree;
 
-public class RedBlackTree extends BalanceableTree {
+/*package whatever //do not write package name here */
 
-    public RedBlackTree(int value) {
-        super(value);
+import java.io.*;
+
+// considering that you know what are red-black trees here is the implementation in java for insertion and traversal.
+// RedBlackTree class. This class contains subclass for node
+// as well as all the functionalities of RedBlackTree such as - rotations, insertion and
+// inoredr traversal
+public class RedBlackTree
+{
+    public Node root;//root node
+    public RedBlackTree()
+    {
+        super();
+        root = null;
     }
 
-    private boolean isBlack(Node node) {
-        return node.getHeighProperty() == 0;
+    // this function performs left rotation
+    Node rotateLeft(Node node)
+    {
+        Node x = node.right;
+        Node y = x.left;
+        x.left = node;
+        node.right = y;
+        node.parent = x; // parent resetting is also important.
+        if(y!=null)
+            y.parent = node;
+        return(x);
+    }
+    //this function performs right rotation
+    Node rotateRight(Node node)
+    {
+        Node x = node.left;
+        Node y = x.right;
+        x.right = node;
+        node.left = y;
+        node.parent = x;
+        if(y!=null)
+            y.parent = node;
+        return(x);
     }
 
-    private boolean isRed(Node node) {
-        return node.getHeighProperty() == 1;
-    }
 
-    private void makeBlack(Node node) {
-        node.setHeighProperty(0);
-    }
+    // these are some flags.
+    // Respective rotations are performed during traceback.
+    // rotations are done if flags are true.
+    boolean ll = false;
+    boolean rr = false;
+    boolean lr = false;
+    boolean rl = false;
+    // helper function for insertion. Actually this function performs all tasks in single pass only.
+    Node insertHelp(Node root, int data)
+    {
+        // f is true when RED RED conflict is there.
+        boolean f=false;
 
-    private void makeRed(Node node) {
-        node.setHeighProperty(1);
-    }
-
-    private void setColor(Node node, boolean toRed) {
-        node.setHeighProperty(toRed ? 1 : 0);
-    }
-
-    public void rebalanceInsert(Node node) {
-        if(node != getRoot()) {
-            makeRed(node);
-            resolveRed(node);
+        //recursive calls to insert at proper position according to BST properties.
+        if(root==null)
+            return(new Node(data));
+        else if(data<root.data)
+        {
+            root.left = insertHelp(root.left, data);
+            root.left.parent = root;
+            if(root!=this.root)
+            {
+                if(root.colour=='R' && root.left.colour=='R')
+                    f = true;
+            }
         }
-    }
+        else
+        {
+            root.right = insertHelp(root.right,data);
+            root.right.parent = root;
+            if(root!=this.root)
+            {
+                if(root.colour=='R' && root.right.colour=='R')
+                    f = true;
+            }
+            // at the same time of insertion, we are also assigning parent nodes
+            // also we are checking for RED RED conflicts
+        }
 
-    private void resolveRed(Node node) {
-        Node parent, sibling, middle, grandparent;
-        parent = node.getParent();
+        // now lets rotate.
+        if(this.ll) // for left rotate.
+        {
+            root = rotateLeft(root);
+            root.colour = 'B';
+            root.left.colour = 'R';
+            this.ll = false;
+        }
+        else if(this.rr) // for right rotate
+        {
+            root = rotateRight(root);
+            root.colour = 'B';
+            root.right.colour = 'R';
+            this.rr = false;
+        }
+        else if(this.rl) // for right and then left
+        {
+            root.right = rotateRight(root.right);
+            root.right.parent = root;
+            root = rotateLeft(root);
+            root.colour = 'B';
+            root.left.colour = 'R';
 
-        if(isRed(parent)){
-            sibling = sibling(parent);
-
-            if(sibling == null || isBlack(sibling)) {
-                middle = restructure(node);
-                makeBlack(middle);
-                makeRed(middle.getLetfChild());
-                makeRed(middle.getRightChild());
-            } else {
-                makeBlack(parent);
-                makeBlack(sibling);
-
-                grandparent = parent.getParent();
-                if(grandparent != getRoot()) {
-                    makeRed(grandparent);
-                    resolveRed(grandparent);
+            this.rl = false;
+        }
+        else if(this.lr) // for left and then right.
+        {
+            root.left = rotateLeft(root.left);
+            root.left.parent = root;
+            root = rotateRight(root);
+            root.colour = 'B';
+            root.right.colour = 'R';
+            this.lr = false;
+        }
+        // when rotation and recolouring is done flags are reset.
+        // Now lets take care of RED RED conflict
+        if(f)
+        {
+            if(root.parent.right == root) // to check which child is the current node of its parent
+            {
+                if(root.parent.left==null || root.parent.left.colour=='B') // case when parent's sibling is black
+                {// perform certaing rotation and recolouring. This will be done while backtracking. Hence setting up respective flags.
+                    if(root.left!=null && root.left.colour=='R')
+                        this.rl = true;
+                    else if(root.right!=null && root.right.colour=='R')
+                        this.ll = true;
+                }
+                else // case when parent's sibling is red
+                {
+                    root.parent.left.colour = 'B';
+                    root.colour = 'B';
+                    if(root.parent!=this.root)
+                        root.parent.colour = 'R';
                 }
             }
-        }
-    }
-
-    public void rebalanceDelete(Node node) {
-        if(isRed(node)) {
-            makeBlack(node);
-        } else if (node != getRoot()) {
-            Node sibling = sibling(node);
-            if(isInternal(sibling) && (isBlack(sibling) || isInternal(sibling.getLetfChild()))) {
-                remedyDoubleBlack(node);
-            }
-        }
-    }
-
-    private Node sibling(Node node) {
-        Node parent = node.getParent();
-        if(parent == null) {
-            return null;
-        }
-
-        if(node == parent.getLetfChild()) {
-            return parent.getRightChild();
-        } else {
-            return parent.getLetfChild();
-        }
-    }
-
-    private void remedyDoubleBlack(Node node) {
-        Node z = node.getParent();
-        Node y = sibling(node);
-
-        if(isBlack(y)) {
-            if(isRed(node.getLetfChild()) || isRed(node.getRightChild())) {
-                Node x = (isRed(y.getLetfChild()) ? y.getLetfChild() : y.getRightChild());
-                Node middle = restructure(x);
-                setColor(middle, isRed(z));
-                makeBlack(middle.getLetfChild());
-                makeBlack(middle.getRightChild());
-            } else {
-                makeRed(y);
-                if(isRed(z)) {
-                    makeBlack(z);
-                } else {
-                    if(z != getRoot()) {
-                        remedyDoubleBlack(z);
-                    }
+            else
+            {
+                if(root.parent.right==null || root.parent.right.colour=='B')
+                {
+                    if(root.left!=null && root.left.colour=='R')
+                        this.rr = true;
+                    else if(root.right!=null && root.right.colour=='R')
+                        this.lr = true;
+                }
+                else
+                {
+                    root.parent.right.colour = 'B';
+                    root.colour = 'B';
+                    if(root.parent!=this.root)
+                        root.parent.colour = 'R';
                 }
             }
-        } else {
-            rotate(y);
-            makeBlack(y);
-            makeRed(z);
-            remedyDoubleBlack(node);
+            f = false;
         }
+        return(root);
+    }
+
+    // function to insert data into tree.
+    public void insert(int data)
+    {
+        if(this.root==null)
+        {
+            this.root = new Node(data);
+            this.root.colour = 'B';
+        }
+        else
+            this.root = insertHelp(this.root,data);
+    }
+    // helper function to print inorder traversal
+    void inorderTraversalHelper(Node node)
+    {
+        if(node!=null)
+        {
+            inorderTraversalHelper(node.left);
+            System.out.printf("%d ", node.data);
+            inorderTraversalHelper(node.right);
+        }
+    }
+    //function to print inorder traversal
+    public void inorderTraversal()
+    {
+        inorderTraversalHelper(this.root);
+    }
+    // helper function to print the tree.
+    void printTreeHelper(Node root, int space)
+    {
+        int i;
+        if(root != null)
+        {
+            space = space + 10;
+            printTreeHelper(root.right, space);
+            System.out.printf("\n");
+            for ( i = 10; i < space; i++)
+            {
+                System.out.printf(" ");
+            }
+            System.out.printf("%d", root.data);
+            System.out.printf("\n");
+            printTreeHelper(root.left, space);
+        }
+    }
+    // function to print the tree.
+    public void printTree()
+    {
+        printTreeHelper(this.root, 0);
     }
 }
