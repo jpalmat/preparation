@@ -5,8 +5,8 @@ public class Main {
     {
         // let us try to insert some data into tree and try to visualize the tree as well as traverse.
         RedBlackTree t = new RedBlackTree();
-        int[] arr = {1,4,6,3,5,7,8,2,9};
-        for(int i=0;i<9;i++)
+        int[] arr = {1,3,5};
+        for(int i=0;i<3;i++)
         {
             t.insert(arr[i]);
             System.out.println();
