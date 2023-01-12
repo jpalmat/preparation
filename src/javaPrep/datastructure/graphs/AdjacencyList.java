@@ -104,7 +104,33 @@ public class AdjacencyList<T> {
         }
     }
 
+    //breath first search
+    void BFS(T n)
+    {
 
+        Set<T> nodesVisited = new TreeSet<>();       //initialize boolean array for holding the data
+        T a;
+        Queue<T> queue = new LinkedList<>();
+
+        nodesVisited.add(n);
+        queue.add(n);                   //root node is added to the top of the queue
+
+        while (queue.size() != 0)
+        {
+            n = queue.poll();             //remove the top element of the queue
+            System.out.print(n+" ");           //print the top element of the queue
+
+            for (int i = 0; i < graph.get(n).size(); i++)  //iterate through the linked list and push all neighbors into queue
+            {
+                a = graph.get(n).get(i);
+                if (!nodesVisited.contains(a))                    //only insert nodes into queue if they have not been explored already
+                {
+                    nodesVisited.add(a);
+                    queue.add(a);
+                }
+            }
+        }
+    }
 
     public static void main(String[] args) {
         AdjacencyList<String> graphObject = new AdjacencyList<>();
@@ -126,5 +152,7 @@ public class AdjacencyList<T> {
         graphObject.hasEdge("a","b");
 
         graphObject.DFS("a");
+        System.out.println("\n");
+        graphObject.BFS("a");
     }
 }
