@@ -54,39 +54,57 @@ public class AdjacencyList<T> {
     }
 
     //TRAVERSE ALGORITHM
-    //depth first search
-    //iterative
-    void DFS(T n)
+    //depth first search iterative
+//    void DFS(T n) {
+//        Set<T> nodesVisited = new TreeSet<>();
+//        Stack<T> stack = new Stack<>();
+//
+//        stack.push(n);                                    //push root node to the stack
+//        T a;
+//
+//        while(!stack.empty()) {
+//            n = stack.peek();                       //extract the top element of the stack
+//            stack.pop();                            //remove the top element from the stack
+//
+//            if(!nodesVisited.contains(n)) {
+//                System.out.print(n + " ");
+//                nodesVisited.add(n);
+//            }
+//
+//            for (int i = 0; i < graph.get(n).size(); i++) { //iterate through the linked list and then propagate to the next few nodes
+//                a = graph.get(n).get(i);
+//                if (!nodesVisited.contains(a))                    //only push those nodes to the stack which aren't in it already
+//                {
+//                    stack.push(a);                          //push the top element to the stack
+//                }
+//            }
+//        }
+//    }
+
+    //depth first search recursive
+    void DFS(T v)
     {
-        Set<T> nodesVisited = new TreeSet<>();
+        Set already = new TreeSet();            //initialize a new boolean array to store the details of explored nodes
+        DFSUtil(v, already);
+    }
+    void DFSUtil(T vertex, Set nodesVisited)
+    {
 
-        Stack<T> stack = new Stack<>();
-
-        stack.push(n);                                    //push root node to the stack
+        nodesVisited.add(vertex);                         //mark the node as explored
+        System.out.print(vertex + " ");
         T a;
 
-        while(!stack.empty())
+        for (int i = 0; i < graph.get(vertex).size(); i++)  //iterate through the linked list and then propagate to the next few nodes
         {
-            n = stack.peek();                       //extract the top element of the stack
-            stack.pop();                            //remove the top element from the stack
-
-            if(!nodesVisited.contains(n))
+            a = graph.get(vertex).get(i);
+            if (!nodesVisited.contains(a))                    //only propagate to next nodes which haven't been explored
             {
-                System.out.print(n + " ");
-                nodesVisited.add(n);
+                DFSUtil(a, nodesVisited);
             }
-
-            for (int i = 0; i < graph.get(n).size(); i++)  //iterate through the linked list and then propagate to the next few nodes
-            {
-                a = graph.get(n).get(i);
-                if (!nodesVisited.contains(a))                    //only push those nodes to the stack which aren't in it already
-                {
-                    stack.push(a);                          //push the top element to the stack
-                }
-            }
-
         }
     }
+
+
 
     public static void main(String[] args) {
         AdjacencyList<String> graphObject = new AdjacencyList<>();
