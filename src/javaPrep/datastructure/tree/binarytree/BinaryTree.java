@@ -3,6 +3,10 @@ package javaPrep.datastructure.tree.binarytree;
 import java.util.LinkedList;
 import java.util.Queue;
 
+//https://www.youtube.com/watch?v=9RHO6jU--GU
+//https://www.youtube.com/watch?v=YWqla0UX-38
+//https://www.youtube.com/watch?v=qA02XWRTBdw&t=14s
+
 public class BinaryTree {
     Node root;
 

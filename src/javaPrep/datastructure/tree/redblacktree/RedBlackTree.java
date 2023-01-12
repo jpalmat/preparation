@@ -4,10 +4,7 @@ package javaPrep.datastructure.tree.redblacktree;
 
 import java.io.*;
 
-// considering that you know what are red-black trees here is the implementation in java for insertion and traversal.
-// RedBlackTree class. This class contains subclass for node
-// as well as all the functionalities of RedBlackTree such as - rotations, insertion and
-// inoredr traversal
+
 public class RedBlackTree
 {
     public Node root;//root node

@@ -2,6 +2,8 @@ package javaPrep.datastructure.hashtable;
 
 import javaPrep.datastructure.list.ListByArray;
 
+//https://java-programming.mooc.fi/part-12/2-arraylist-and-hashtable
+
 public class HashTableByArray<K, V> {
     private ListByArray<Pair<K, V>>[] values;
     private int firstFreeIndex;
