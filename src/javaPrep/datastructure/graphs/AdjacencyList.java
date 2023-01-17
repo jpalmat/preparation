@@ -55,54 +55,54 @@ public class AdjacencyList<T> {
 
     //TRAVERSE ALGORITHM
     //depth first search iterative
-//    void DFS(T n) {
-//        Set<T> nodesVisited = new TreeSet<>();
-//        Stack<T> stack = new Stack<>();
-//
-//        stack.push(n);                                    //push root node to the stack
-//        T a;
-//
-//        while(!stack.empty()) {
-//            n = stack.peek();                       //extract the top element of the stack
-//            stack.pop();                            //remove the top element from the stack
-//
-//            if(!nodesVisited.contains(n)) {
-//                System.out.print(n + " ");
-//                nodesVisited.add(n);
-//            }
-//
-//            for (int i = 0; i < graph.get(n).size(); i++) { //iterate through the linked list and then propagate to the next few nodes
-//                a = graph.get(n).get(i);
-//                if (!nodesVisited.contains(a))                    //only push those nodes to the stack which aren't in it already
-//                {
-//                    stack.push(a);                          //push the top element to the stack
-//                }
-//            }
-//        }
-//    }
+    void DFS(T n) {
+        Set<T> nodesVisited = new TreeSet<>();
+        Stack<T> stack = new Stack<>();
 
-    //depth first search recursive
-    void DFS(T v)
-    {
-        Set already = new TreeSet();            //initialize a new boolean array to store the details of explored nodes
-        DFSUtil(v, already);
-    }
-    void DFSUtil(T vertex, Set nodesVisited)
-    {
-
-        nodesVisited.add(vertex);                         //mark the node as explored
-        System.out.print(vertex + " ");
+        stack.push(n);                                    //push root node to the stack
         T a;
 
-        for (int i = 0; i < graph.get(vertex).size(); i++)  //iterate through the linked list and then propagate to the next few nodes
-        {
-            a = graph.get(vertex).get(i);
-            if (!nodesVisited.contains(a))                    //only propagate to next nodes which haven't been explored
-            {
-                DFSUtil(a, nodesVisited);
+        while(!stack.empty()) {
+            n = stack.peek();                       //extract the top element of the stack
+            stack.pop();                            //remove the top element from the stack
+
+            if(!nodesVisited.contains(n)) {
+                System.out.print(n + " ");
+                nodesVisited.add(n);
+            }
+
+            for (int i = 0; i < graph.get(n).size(); i++) { //iterate through the linked list and then propagate to the next few nodes
+                a = graph.get(n).get(i);
+                if (!nodesVisited.contains(a))                    //only push those nodes to the stack which aren't in it already
+                {
+                    stack.push(a);                          //push the top element to the stack
+                }
             }
         }
     }
+
+    //depth first search recursive
+//    void DFS(T v)
+//    {
+//        Set already = new TreeSet();            //initialize a new boolean array to store the details of explored nodes
+//        DFSUtil(v, already);
+//    }
+//    void DFSUtil(T vertex, Set nodesVisited)
+//    {
+//
+//        nodesVisited.add(vertex);                         //mark the node as explored
+//        System.out.print(vertex + " ");
+//        T a;
+//
+//        for (int i = 0; i < graph.get(vertex).size(); i++)  //iterate through the linked list and then propagate to the next few nodes
+//        {
+//            a = graph.get(vertex).get(i);
+//            if (!nodesVisited.contains(a))                    //only propagate to next nodes which haven't been explored
+//            {
+//                DFSUtil(a, nodesVisited);
+//            }
+//        }
+//    }
 
     //breath first search
     void BFS(T n)
@@ -133,13 +133,13 @@ public class AdjacencyList<T> {
     }
 
     public static void main(String[] args) {
-        AdjacencyList<String> graphObject = new AdjacencyList<>();
+        AdjacencyList<Integer> graphObject = new AdjacencyList<>();
 
-        graphObject.addEdge("a", "b", false);
-        graphObject.addEdge("a", "c", false);
-        graphObject.addEdge("b", "d", false);
-        graphObject.addEdge("c", "e", false);
-        graphObject.addEdge("d", "f", false);
+        graphObject.addEdge(0, 1, false);
+        graphObject.addEdge(0, 2, false);
+        graphObject.addEdge(1, 3, false);
+        graphObject.addEdge(2, 4, false);
+        graphObject.addEdge(3, 5, false);
 //        graphObject.addEdge(4, 0, false);
 //        graphObject.addEdge(4, 1, false);
 //        graphObject.addEdge(4, 3, false);
@@ -148,11 +148,11 @@ public class AdjacencyList<T> {
 //        System.out.println("Graph:\n"
 //                + graphObject.printGraph());
 
-        graphObject.hasVertex("a");
-        graphObject.hasEdge("a","b");
+        graphObject.hasVertex(0);
+        graphObject.hasEdge(0,1);
 
-        graphObject.DFS("a");
+        graphObject.DFS(0);
         System.out.println("\n");
-        graphObject.BFS("a");
+        graphObject.BFS(0);
     }
 }
