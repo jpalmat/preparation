@@ -1,4 +1,4 @@
-package javaPrep.easy;
+package javaPrep.leetcode.easy;
 
 import java.util.Stack;
 

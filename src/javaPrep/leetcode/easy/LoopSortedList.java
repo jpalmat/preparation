@@ -1,4 +1,4 @@
-package javaPrep.easy;
+package javaPrep.leetcode.easy;
 
 public class LoopSortedList {
 
