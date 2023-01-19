@@ -19,7 +19,6 @@ public class MergedTwoSorted {
 
         ListNode p1=l1;
         ListNode p2=l2;
-        int i = 1;
         while(p1!=null && p2!=null){
             if(p1.val < p2.val){
                 p.next = p1;
