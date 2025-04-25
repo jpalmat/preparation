@@ -1,5 +1,6 @@
 package interview.formos;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -56,7 +57,7 @@ public class Solution1 {
         inventoryOfIngredients.put(FRUIT.MANGO.toString(), 10000);     
         inventoryOfIngredients.put(FRUIT.ICE.toString(), 10000);       
         inventoryOfIngredients.put(FRUIT.MILK.toString(), 10000); 
-        inventoryOfIngredients.put(FRUIT.SUGAR.toString(), 10000);  
+        inventoryOfIngredients.put(FRUIT.SUGAR.toString(), 1000);    
     }
     
     public static void main(String[] args) {
@@ -100,6 +101,8 @@ public class Solution1 {
         for (Map.Entry<String, Integer> entry : inventoryOfIngredients.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
+
+        checkLowInventory();
     }
 
     // 3. Allow the vendor to sell a drink and reduce inventory accordingly,
@@ -147,4 +150,28 @@ public class Solution1 {
     }   
     
    
+    // (optional) Provide a warning when any ingredient gets below the level required to make 4 more drinks
+    private void checkLowInventory() {
+        System.out.println("\nChecking for low inventory...");
+        final int MIN_DRINKS = 4;
+        Map<String, Integer> requiredFor4Drinks = new HashMap<>();
+
+        // Calculate ingredients needed for 4 drinks of the largest size.
+        requiredFor4Drinks.put(FRUIT.ICE.toString(), (int) Math.ceil((sizeOfDrink / 100.0) * mlOfIcePer100MlOfFruitDrink) * MIN_DRINKS);
+        requiredFor4Drinks.put(FRUIT.MILK.toString(), (int) Math.ceil((sizeOfDrink / 100.0) * mlOfMilkPer100MlOfFruitDrink) * MIN_DRINKS);
+        requiredFor4Drinks.put(FRUIT.SUGAR.toString(), (int) Math.ceil((sizeOfDrink / 100.0) * mlOfSugarPer100MlOfFruitDrink) * MIN_DRINKS);
+        requiredFor4Drinks.put(FRUIT.STRAWBERRY.toString(), (int) Math.ceil((sizeOfDrink / 100.0) * grOfStraberryPer100Ml) * MIN_DRINKS);
+        requiredFor4Drinks.put(FRUIT.BANANA.toString(), (int) Math.ceil((sizeOfDrink / 100.0) * grOfBananaPer100Ml) * MIN_DRINKS);
+        requiredFor4Drinks.put(FRUIT.MANGO.toString(), (int) Math.ceil((sizeOfDrink / 100.0) * grOfMangoPer100Ml) * MIN_DRINKS);
+
+        for (Map.Entry<String, Integer> entry : inventoryOfIngredients.entrySet()) {
+            String ingredient = entry.getKey();
+            Integer currentAmount = entry.getValue();
+            if (requiredFor4Drinks.containsKey(ingredient)) {
+                if (currentAmount < requiredFor4Drinks.get(ingredient)) {
+                    System.out.println("Warning: " + ingredient + " is below the level required to make 4 more drinks!  Current: " + currentAmount + ", Required: " + requiredFor4Drinks.get(ingredient));
+                }
+            }
+        }
+    }
 }
