@@ -121,7 +121,7 @@ public class StreamMain {
 		System.out.println(b);
 
 		//max age
-		Persona maxAge = list.stream().max(Comparator.comparing(Persona::getAge)).orElseThrow();
+		Persona maxAge = list.stream().max(Comparator.comparing(Persona::getAge)).orElse(null);
 		int max = list.stream().map(x -> x.getAge()).mapToInt(v -> v).max().orElse(-1);
 
 		double aver = list.stream().map(x -> x.getAge()).mapToInt(v -> v).average().orElse(-1);

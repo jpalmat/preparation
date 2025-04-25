@@ -7,16 +7,29 @@ import java.util.Scanner;
 enum FRUIT {
     STRAWBERRY(1),
     BANANA(2),
-    MANGO(3);
+    MANGO(3),
+    ICE(4),
+    MILK(5),
+    SUGAR(6);
+
 
     private final int fruitValue;
-    
+
     FRUIT(int fruitValue) {
         this.fruitValue = fruitValue;
     }
 
     public int getFruitValue() {
         return fruitValue;
+    }
+
+    public static FRUIT fromValue(int value) {
+        for (FRUIT fruit : FRUIT.values()) {
+            if (fruit.getFruitValue() == value) {
+                return fruit;
+            }
+        }
+        throw new IllegalArgumentException("Invalid fruit value: " + value);
     }
 }
 
@@ -34,22 +47,16 @@ public class Solution1 {
     
     private Map<String, Integer> inventoryOfIngredients = new HashMap<>();
 
-    private Map<Integer, String> fruits = new HashMap<>();
-
      // Constructor
      public Solution1() {
         // 1. Hardcode the vendor's starting inventory of ingredients
         
-        inventoryOfIngredients.put("strawberry", 10000); 
-        inventoryOfIngredients.put("banana", 10000);    
-        inventoryOfIngredients.put("mango", 10000);     
-        inventoryOfIngredients.put("ice", 10000);       
-        inventoryOfIngredients.put("milk", 10000); 
-        inventoryOfIngredients.put("sugar", 10000);  
-        
-        fruits.put(1, "strawberry");
-        fruits.put(2, "banana");
-        fruits.put(3, "mango");
+        inventoryOfIngredients.put(FRUIT.STRAWBERRY.toString(), 10000); 
+        inventoryOfIngredients.put(FRUIT.BANANA.toString(), 10000);    
+        inventoryOfIngredients.put(FRUIT.MANGO.toString(), 10000);     
+        inventoryOfIngredients.put(FRUIT.ICE.toString(), 10000);       
+        inventoryOfIngredients.put(FRUIT.MILK.toString(), 10000); 
+        inventoryOfIngredients.put(FRUIT.SUGAR.toString(), 10000);  
     }
     
     public static void main(String[] args) {
@@ -96,7 +103,6 @@ public class Solution1 {
     }
 
     // 3. Allow the vendor to sell a drink and reduce inventory accordingly,
-    // 4. Deny a sale when there are not enough ingredients to make the drink
     private void sellDrink(Scanner scanner) {
         System.out.print("Enter the number of the fruit: 1 -> Strawberry, 2 -> Banana, 3 ->  Mango): ");
         int choice = Integer.parseInt(scanner.nextLine()); 
@@ -117,21 +123,25 @@ public class Solution1 {
         int requiredMilkMl = (int) Math.ceil((sizeOfDrink / 100.0) * mlOfMilkPer100MlOfFruitDrink);
         int requiredSugarGrams = (int) Math.ceil((sizeOfDrink / 100.0) * mlOfSugarPer100MlOfFruitDrink);
 
+        System.out.println("Required ingredients for " + FRUIT.fromValue(choice).toString().toLowerCase() + " drink:");
+
+
+    // 4. Deny a sale when there are not enough ingredients to make the drink
         // Check if there are enough ingredients
-        if (inventoryOfIngredients.get(fruits.get(choice)) < requiredFruitGrams ||
-                inventoryOfIngredients.get("ice") < requiredIceMl ||
-                inventoryOfIngredients.get("milk") < requiredMilkMl ||
-                inventoryOfIngredients.get("sugar") < requiredSugarGrams) {
+        if (inventoryOfIngredients.get(FRUIT.fromValue(choice).toString()) < requiredFruitGrams ||
+                inventoryOfIngredients.get(FRUIT.ICE.toString()) < requiredIceMl ||
+                inventoryOfIngredients.get(FRUIT.MILK.toString()) < requiredMilkMl ||
+                inventoryOfIngredients.get(FRUIT.SUGAR.toString()) < requiredSugarGrams) {
             System.out.println("Insufficient ingredients to make the drink.");
-            System.out.println("Cannot sell " + fruits.get(choice) + " drink.");
+            System.out.println("Cannot sell " + FRUIT.fromValue(choice) + " drink.");
             return;
         }
 
         // Reduce the inventory
-        inventoryOfIngredients.put(fruits.get(choice), inventoryOfIngredients.get(fruits.get(choice)) - requiredFruitGrams);
-        inventoryOfIngredients.put("ice", inventoryOfIngredients.get("ice") - requiredIceMl);
-        inventoryOfIngredients.put("milk", inventoryOfIngredients.get("milk") - requiredMilkMl);
-        inventoryOfIngredients.put("sugar", inventoryOfIngredients.get("sugar") - requiredSugarGrams);
+        inventoryOfIngredients.put(FRUIT.fromValue(choice).toString(), inventoryOfIngredients.get(FRUIT.fromValue(choice).toString()) - requiredFruitGrams);
+        inventoryOfIngredients.put(FRUIT.ICE.toString(), inventoryOfIngredients.get(FRUIT.ICE.toString()) - requiredIceMl);
+        inventoryOfIngredients.put(FRUIT.MILK.toString(), inventoryOfIngredients.get(FRUIT.MILK.toString()) - requiredMilkMl);
+        inventoryOfIngredients.put(FRUIT.SUGAR.toString(), inventoryOfIngredients.get(FRUIT.SUGAR.toString()) - requiredSugarGrams);
 
         System.out.println("Sold a " + sizeOfDrink + "ml " + choice + " drink.");
     }   
