@@ -1,6 +1,5 @@
 package interview.formos;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -57,7 +56,7 @@ public class Solution1 {
         inventoryOfIngredients.put(FRUIT.MANGO.toString(), 10000);     
         inventoryOfIngredients.put(FRUIT.ICE.toString(), 10000);       
         inventoryOfIngredients.put(FRUIT.MILK.toString(), 10000); 
-        inventoryOfIngredients.put(FRUIT.SUGAR.toString(), 1000);    
+        inventoryOfIngredients.put(FRUIT.SUGAR.toString(), 100);    
     }
     
     public static void main(String[] args) {
@@ -126,8 +125,6 @@ public class Solution1 {
         int requiredMilkMl = (int) Math.ceil((sizeOfDrink / 100.0) * mlOfMilkPer100MlOfFruitDrink);
         int requiredSugarGrams = (int) Math.ceil((sizeOfDrink / 100.0) * mlOfSugarPer100MlOfFruitDrink);
 
-        System.out.println("Required ingredients for " + FRUIT.fromValue(choice).toString().toLowerCase() + " drink:");
-
 
     // 4. Deny a sale when there are not enough ingredients to make the drink
         // Check if there are enough ingredients
@@ -146,7 +143,7 @@ public class Solution1 {
         inventoryOfIngredients.put(FRUIT.MILK.toString(), inventoryOfIngredients.get(FRUIT.MILK.toString()) - requiredMilkMl);
         inventoryOfIngredients.put(FRUIT.SUGAR.toString(), inventoryOfIngredients.get(FRUIT.SUGAR.toString()) - requiredSugarGrams);
 
-        System.out.println("Sold a " + sizeOfDrink + "ml " + choice + " drink.");
+        System.out.println("Sold a " + sizeOfDrink + "ml of " + FRUIT.fromValue(choice) + " drink.");
     }   
     
    
