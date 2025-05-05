@@ -1,4 +1,4 @@
-package interview.baires;
+package interview.baires.problem2;
 
 public class problem2 {
     public static String transformDurationToText(int totalSeconds) {
